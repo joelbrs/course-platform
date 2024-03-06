@@ -7,14 +7,14 @@ import { generateHash } from 'src/infra/utils/hashs/generate-hash';
 export class UserService {
   constructor(private userRepository: UserRepository) {}
 
-  async create(data: UserDtoIn) {
+  create(data: UserDtoIn) {
     return this.userRepository.create({
       ...data,
       password: generateHash(data.password),
     });
   }
 
-  async findByEmail(email: string) {
-    return await this.userRepository.findByEmail(email);
+  findByEmail(email: string) {
+    return this.userRepository.findByEmail(email);
   }
 }
