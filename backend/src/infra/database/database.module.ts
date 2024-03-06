@@ -4,6 +4,8 @@ import { PrismaUserRepository } from './prisma/repositories/prisma-user-reposito
 import { UserRepository } from 'src/infra/repositories/user.repository';
 import { CourseRepository } from '../repositories/course.repository';
 import { PrismaCourseRepository } from './prisma/repositories/prisma-course-repository';
+import { PrismaCourseProgressRepository } from './prisma/repositories/prisma-course-progress-repository';
+import { CourseProgressRepository } from '../repositories/course-progress.repository';
 
 @Module({
   providers: [
@@ -16,7 +18,16 @@ import { PrismaCourseRepository } from './prisma/repositories/prisma-course-repo
       provide: CourseRepository,
       useClass: PrismaCourseRepository,
     },
+    {
+      provide: CourseProgressRepository,
+      useClass: PrismaCourseProgressRepository,
+    },
   ],
-  exports: [PrismaService, UserRepository, CourseRepository],
+  exports: [
+    PrismaService,
+    UserRepository,
+    CourseRepository,
+    CourseProgressRepository,
+  ],
 })
 export class DatabaseModule {}

@@ -1,12 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CourseDtoIn {
-  @ApiProperty({ type: String })
+  @ApiProperty()
   title: string;
 
-  @ApiProperty({ type: String })
+  @ApiProperty()
   description: string;
 
-  @ApiProperty({ type: String })
+  @ApiProperty()
   banner: string | null;
 }
