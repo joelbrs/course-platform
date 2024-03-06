@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { UserRepository } from '../../infra/repositories/user.repository';
 import { UserDtoIn } from '../../domain/dtos/user.dto';
 import { generateHash } from 'src/infra/utils/hashs/generate-hash';
@@ -7,8 +7,8 @@ import { generateHash } from 'src/infra/utils/hashs/generate-hash';
 export class UserService {
   constructor(private userRepository: UserRepository) {}
 
-  create(data: UserDtoIn) {
-    return this.userRepository.create({
+  async create(data: UserDtoIn) {
+    return await this.userRepository.create({
       ...data,
       password: generateHash(data.password),
     });
@@ -18,7 +18,7 @@ export class UserService {
     const user = await this.userRepository.findByEmail(email);
 
     if (!user) {
-      throw new Error('User not found.');
+      throw new NotFoundException();
     }
 
     return user;

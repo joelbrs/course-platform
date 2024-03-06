@@ -1,6 +1,6 @@
 import { CourseDtoIn } from '@/domain/dtos/course.dto';
 import { CourseRepository } from '@/infra/repositories/course.repository';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
 @Injectable()
 export class CourseService {
@@ -26,11 +26,11 @@ export class CourseService {
     }
   }
 
-  findById(id: string) {
-    const course = this.courseRepository.findById(id);
+  async findById(id: string) {
+    const course = await this.courseRepository.findById(id);
 
     if (!course) {
-      throw new Error('Course not found.');
+      throw new NotFoundException();
     }
     return course;
   }

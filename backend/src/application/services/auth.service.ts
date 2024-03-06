@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UserService } from './user.service';
 import { AuthDtoIn, AuthDtoOut } from '@/domain/dtos/auth.dto';
 import { compareHash } from '@/infra/utils/hashs/compare-hash';
@@ -20,7 +20,7 @@ export class AuthService {
     const passwordMatches = compareHash(password, generateHash(data.password));
 
     if (!passwordMatches) {
-      throw new Error('Invaid credentials.');
+      throw new UnauthorizedException();
     }
 
     const jwtPayload = { sub: id, name, type };
