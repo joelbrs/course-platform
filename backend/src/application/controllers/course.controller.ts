@@ -1,7 +1,9 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  HttpCode,
   Param,
   Post,
   Put,
@@ -29,6 +31,14 @@ export class CourseController {
   @Put('/:id')
   update(@Param('id') id: string, @Body() data: CourseDtoIn) {
     return this.courseService.update(id, data);
+  }
+
+  @Roles('ADMIN')
+  @UseGuards(AuthGuard, RolesGuard)
+  @HttpCode(204)
+  @Delete('/:id')
+  delete(@Param('id') id: string) {
+    return this.courseService.delete(id);
   }
 
   @Get('/:id')

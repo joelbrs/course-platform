@@ -17,6 +17,10 @@ export class PrismaCourseRepository extends CourseRepository {
     return await this.prisma.course.update({ where: { id }, data });
   }
 
+  async delete(id: string) {
+    await this.prisma.course.delete({ where: { id } });
+  }
+
   async findById(id: string) {
     return await this.prisma.course.findUnique({ where: { id } });
   }

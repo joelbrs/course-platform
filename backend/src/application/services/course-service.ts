@@ -10,11 +10,28 @@ export class CourseService {
     return this.courseRepository.create(data);
   }
 
-  update(id: string, data: CourseDtoIn) {
-    return this.courseRepository.update(id, data);
+  async update(id: string, data: CourseDtoIn) {
+    const course = await this.findById(id);
+
+    return this.courseRepository.update(course.id, data);
+  }
+
+  async delete(id: string) {
+    const course = await this.findById(id);
+
+    try {
+      await this.courseRepository.delete(course.id);
+    } catch (err) {
+      throw err;
+    }
   }
 
   findById(id: string) {
-    return this.courseRepository.findById(id);
+    const course = this.courseRepository.findById(id);
+
+    if (!course) {
+      throw new Error('Course not found.');
+    }
+    return course;
   }
 }
