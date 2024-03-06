@@ -13,4 +13,8 @@ export class UserService {
       password: generateHash(data.password),
     });
   }
+
+  async findByEmail(email: string) {
+    return await this.userRepository.findByEmail(email);
+  }
 }
