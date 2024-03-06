@@ -22,6 +22,13 @@ model User {
   type     UserType @default(STUDENT)
 }
 
+model Course {
+  id          String  @id @default(uuid())
+  title       String
+  description String
+  banner      String?
+}
+
 enum UserType {
   ADMIN
   STUDENT
