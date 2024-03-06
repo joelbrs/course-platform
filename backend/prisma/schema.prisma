@@ -20,6 +20,8 @@ model User {
   email    String   @unique
   password String
   type     UserType @default(STUDENT)
+
+  CourseProgress CourseProgress[]
 }
 
 model Course {
@@ -27,9 +29,28 @@ model Course {
   title       String
   description String
   banner      String?
+
+  CourseProgress CourseProgress[]
+}
+
+model CourseProgress {
+  user_id         String
+  course_id       String
+  conclusion_date DateTime?
+  status          ProgressStatus @default(INCOMPLETE)
+
+  user   User   @relation(fields: [user_id], references: [id])
+  course Course @relation(fields: [course_id], references: [id])
+
+  @@id([user_id, course_id])
 }
 
 enum UserType {
   ADMIN
   STUDENT
+}
+
+enum ProgressStatus {
+  COMPLETE
+  INCOMPLETE
 }
