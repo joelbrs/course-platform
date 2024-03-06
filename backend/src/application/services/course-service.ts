@@ -10,6 +10,10 @@ export class CourseService {
     return this.courseRepository.create(data);
   }
 
+  update(id: string, data: CourseDtoIn) {
+    return this.courseRepository.update(id, data);
+  }
+
   findById(id: string) {
     return this.courseRepository.findById(id);
   }

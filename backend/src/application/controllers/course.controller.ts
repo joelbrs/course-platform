@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import { CourseDtoIn } from '@/domain/dtos/course.dto';
 import { CourseService } from '../services/course-service';
 import { Roles } from '@/infra/decorators/roles.decorator';
@@ -14,6 +22,13 @@ export class CourseController {
   @Post()
   create(@Body() data: CourseDtoIn) {
     return this.courseService.create(data);
+  }
+
+  @Roles('ADMIN')
+  @UseGuards(AuthGuard, RolesGuard)
+  @Put('/:id')
+  update(@Param('id') id: string, @Body() data: CourseDtoIn) {
+    return this.courseService.update(id, data);
   }
 
   @Get('/:id')

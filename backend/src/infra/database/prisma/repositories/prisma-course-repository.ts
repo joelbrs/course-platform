@@ -13,6 +13,10 @@ export class PrismaCourseRepository extends CourseRepository {
     return await this.prisma.course.create({ data });
   }
 
+  async update(id: string, data: Prisma.CourseUpdateInput) {
+    return await this.prisma.course.update({ where: { id }, data });
+  }
+
   async findById(id: string) {
     return await this.prisma.course.findUnique({ where: { id } });
   }
