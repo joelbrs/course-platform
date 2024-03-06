@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { UserService } from './user.service';
-import { AuthDtoIn } from '@/domain/dtos/auth.dto';
+import { AuthDtoIn, AuthDtoOut } from '@/domain/dtos/auth.dto';
 import { compareHash } from '@/infra/utils/hashs/compare-hash';
 import { JwtService } from '@nestjs/jwt';
 import { generateHash } from '@/infra/utils/hashs/generate-hash';
@@ -12,7 +12,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async authenticate(data: AuthDtoIn) {
+  async authenticate(data: AuthDtoIn): Promise<AuthDtoOut> {
     const { id, name, password, type } = await this.userService.findByEmail(
       data.email,
     );
