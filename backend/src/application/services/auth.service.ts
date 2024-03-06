@@ -13,7 +13,7 @@ export class AuthService {
   ) {}
 
   async authenticate(data: AuthDtoIn) {
-    const { id, name, password } = await this.userService.findByEmail(
+    const { id, name, password, type } = await this.userService.findByEmail(
       data.email,
     );
 
@@ -23,7 +23,7 @@ export class AuthService {
       throw new Error('Invaid credentials.');
     }
 
-    const jwtPayload = { sub: id, name };
+    const jwtPayload = { sub: id, name, type };
     const access_token = await this.jwtService.signAsync(jwtPayload);
 
     return { access_token };
