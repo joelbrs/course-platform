@@ -12,4 +12,8 @@ export class PrismaCourseRepository extends CourseRepository {
   async create(data: Prisma.CourseCreateInput) {
     return await this.prisma.course.create({ data });
   }
+
+  async findById(id: string) {
+    return await this.prisma.course.findUnique({ where: { id } });
+  }
 }

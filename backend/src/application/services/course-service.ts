@@ -9,4 +9,8 @@ export class CourseService {
   create(data: CourseDtoIn) {
     return this.courseRepository.create(data);
   }
+
+  findById(id: string) {
+    return this.courseRepository.findById(id);
+  }
 }
