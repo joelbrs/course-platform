@@ -14,7 +14,13 @@ export class UserService {
     });
   }
 
-  findByEmail(email: string) {
-    return this.userRepository.findByEmail(email);
+  async findByEmail(email: string) {
+    const user = await this.userRepository.findByEmail(email);
+
+    if (!user) {
+      throw new Error('User not found.');
+    }
+
+    return user;
   }
 }
