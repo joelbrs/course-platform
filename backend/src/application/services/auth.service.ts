@@ -13,7 +13,7 @@ export class AuthService {
   ) {}
 
   async authenticate(data: AuthDtoIn): Promise<AuthDtoOut> {
-    const { id, name, password, type } = await this.userService.findByEmail(
+    const { id, password, role } = await this.userService.findByEmail(
       data.email,
     );
 
@@ -23,7 +23,7 @@ export class AuthService {
       throw new UnauthorizedException();
     }
 
-    const jwtPayload = { sub: id, name, type };
+    const jwtPayload = { sub: id, role };
     const access_token = await this.jwtService.signAsync(jwtPayload);
 
     return { access_token };
