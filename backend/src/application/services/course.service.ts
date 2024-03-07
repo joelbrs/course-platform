@@ -20,14 +20,6 @@ export class CourseService {
     return this.courseRepository.update(course.id, data);
   }
 
-  async start(user_id: string, course_id: string) {
-    return await this.courseProgressService.create(user_id, course_id);
-  }
-
-  async finish(user_id: string, course_id: string) {
-    return await this.courseProgressService.finish(user_id, course_id);
-  }
-
   async delete(id: string) {
     const course = await this.findById(id);
 
@@ -45,5 +37,13 @@ export class CourseService {
       throw new NotFoundException();
     }
     return course;
+  }
+
+  async start(user_id: string, course_id: string) {
+    return await this.courseProgressService.create(user_id, course_id);
+  }
+
+  async finish(user_id: string, course_id: string) {
+    return await this.courseProgressService.finish(user_id, course_id);
   }
 }

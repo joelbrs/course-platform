@@ -12,4 +12,16 @@ export class PrismaModuleRepository extends ModuleRepository {
   async create(data: Prisma.ModuleUncheckedCreateInput) {
     return await this.prisma.module.create({ data });
   }
+
+  async update(id: string, data: Prisma.ModuleUncheckedUpdateInput) {
+    return await this.prisma.module.update({ where: { id }, data });
+  }
+
+  async delete(id: string) {
+    await this.prisma.module.delete({ where: { id } });
+  }
+
+  async findById(id: string) {
+    return await this.prisma.module.findUnique({ where: { id } });
+  }
 }
