@@ -61,7 +61,7 @@ model Module {
 }
 
 model Classes {
-  id        String @default(uuid())
+  id        String @unique @default(uuid())
   course_id String
   module_id String
 
