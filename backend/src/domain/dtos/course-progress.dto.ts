@@ -11,3 +11,11 @@ export class CourseProgressDtoIn {
   @ApiProperty()
   status?: $Enums.ProgressStatus;
 }
+
+export class FinishCourseProgressDto {
+  @ApiProperty()
+  conclusion_date: Date;
+
+  @ApiProperty()
+  status?: $Enums.ProgressStatus;
+}
