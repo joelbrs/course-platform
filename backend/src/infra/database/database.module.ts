@@ -6,6 +6,8 @@ import { CourseRepository } from '../repositories/course.repository';
 import { PrismaCourseRepository } from './prisma/repositories/prisma-course-repository';
 import { PrismaCourseProgressRepository } from './prisma/repositories/prisma-course-progress-repository';
 import { CourseProgressRepository } from '../repositories/course-progress.repository';
+import { ModuleRepository } from '../repositories/module.repository';
+import { PrismaModuleRepository } from './prisma/repositories/prisma-module-repository';
 
 @Module({
   providers: [
@@ -22,12 +24,17 @@ import { CourseProgressRepository } from '../repositories/course-progress.reposi
       provide: CourseProgressRepository,
       useClass: PrismaCourseProgressRepository,
     },
+    {
+      provide: ModuleRepository,
+      useClass: PrismaModuleRepository,
+    },
   ],
   exports: [
     PrismaService,
     UserRepository,
     CourseRepository,
     CourseProgressRepository,
+    ModuleRepository,
   ],
 })
 export class DatabaseModule {}
