@@ -14,6 +14,10 @@ export class UserService {
     });
   }
 
+  async findLoggedUser(id: string) {
+    return await this.userRepository.findById(id);
+  }
+
   async findByEmail(email: string) {
     const user = await this.userRepository.findByEmail(email);
 
