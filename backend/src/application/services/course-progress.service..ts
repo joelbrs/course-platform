@@ -1,7 +1,4 @@
-import {
-  CourseProgressDtoIn,
-  FinishCourseProgressDto,
-} from '@/domain/dtos/course-progress.dto';
+import { FinishCourseProgressDto } from '@/domain/dtos/course-progress.dto';
 import { CourseProgressRepository } from '@/infra/repositories/course-progress.repository';
 import { Injectable } from '@nestjs/common';
 
@@ -9,8 +6,8 @@ import { Injectable } from '@nestjs/common';
 export class CourseProgressService {
   constructor(private courseProgressRepository: CourseProgressRepository) {}
 
-  async create(data: CourseProgressDtoIn) {
-    return await this.courseProgressRepository.create(data);
+  async create(user_id: string, course_id: string) {
+    return await this.courseProgressRepository.create({ course_id, user_id });
   }
 
   async finish(user_id: string, course_id: string) {

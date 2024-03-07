@@ -3,13 +3,7 @@ import { $Enums } from '@prisma/client';
 
 export class CourseProgressDtoIn {
   @ApiProperty()
-  user_id: string;
-
-  @ApiProperty()
   course_id: string;
-
-  @ApiProperty()
-  status?: $Enums.ProgressStatus;
 }
 
 export class FinishCourseProgressDto {

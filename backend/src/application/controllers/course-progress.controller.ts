@@ -7,12 +7,13 @@ import {
   Request,
   UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CourseProgressService } from '../services/course-progress.service.';
 import { CourseProgressDtoIn } from '@/domain/dtos/course-progress.dto';
 import { AuthGuard } from '@/infra/guards/auth.guard';
 
 @ApiTags('course-progress-controller')
+@ApiBearerAuth()
 @UseGuards(AuthGuard)
 @Controller('course-progress')
 export class CourseProgressController {
@@ -20,13 +21,13 @@ export class CourseProgressController {
 
   @ApiOperation({ summary: 'Create a course progress to an user' })
   @Post()
-  async create(@Body() data: CourseProgressDtoIn) {
-    return this.courseProgressService.create(data);
+  async create(@Request() { user }, @Body() dto: CourseProgressDtoIn) {
+    return this.courseProgressService.create(user.sub, dto.course_id);
   }
 
   @ApiOperation({ summary: 'Finish a course progress to an user' })
   @Put('finish/:course_id')
   async finish(@Request() { user }, @Param('course_id') course_id: string) {
-    return this.courseProgressService.finish(user.id, course_id);
+    return this.courseProgressService.finish(user.sub, course_id);
   }
 }

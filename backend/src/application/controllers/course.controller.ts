@@ -14,9 +14,10 @@ import { CourseService } from '../services/course.service';
 import { Roles } from '@/infra/decorators/roles.decorator';
 import { AuthGuard } from '@/infra/guards/auth.guard';
 import { RolesGuard } from '@/infra/guards/roles.guard';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('course-controller')
+@ApiBearerAuth()
 @Controller('courses')
 export class CourseController {
   constructor(private courseService: CourseService) {}
