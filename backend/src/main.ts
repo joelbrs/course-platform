@@ -16,6 +16,7 @@ async function bootstrap() {
     .setTitle('Course Platform')
     .setDescription('The Course Platform API')
     .setVersion('1.0')
+    .addBearerAuth()
     // .addTag('courses')
     .build();
 
